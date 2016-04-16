@@ -1,0 +1,43 @@
+/*  ==========================================================================
+    Settings: Breakpoints
+    --------------------------------------------------------------------------
+
+    To use this specfic:
+
+    * Breakpoint name
+    * Size it triggers
+    * Boolean value if it should be used as a grid
+
+    ========================================================================== */
+
+$breakpoints: (
+  "xs"    : ( em(480px), false),
+  "s"     : ( em(640px), false),
+  "sm"    : ( em(768px), true),
+  "m"     : ( em(960px), false),
+  "md"    : ( em(992px), true),
+  "lg"    : ( em(1200px), true),
+  "big"   : ( em(1300px), false),
+  "huge"  : ( em(1800px), false)
+)!default;
+
+// -------------------------------------------
+// Breakpoint Mixin:
+// Referenced in the sublime-snippet
+// -------------------------------------------
+
+@mixin breakpoint($breakpoint) {
+
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: #{ nth(map-get($breakpoints, $breakpoint), 1) }) { @content; }
+  }
+
+  @else if $breakpoint == 'print' {
+    @media print { @content; }
+  }
+
+  @else {
+    @warn "Invalid breakpoint `#{$breakpoint}`.";
+  }
+
+}

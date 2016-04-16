@@ -1,0 +1,21 @@
+/*  ==========================================================================
+    Layout: Custom Grid
+    --------------------------------------------------------------------------
+
+    In the case if you need push/pull classes just manually add them
+    If you use them a bunch extend the grid generator
+
+    ========================================================================== */
+
+.pull-6\@sm {
+  @include breakpoint(sm) {
+    right: 50%;
+  }
+}
+
+.push-6\@sm {
+  @include breakpoint(sm) {
+    left: 50%;
+  }
+}
+

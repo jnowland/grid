@@ -1,0 +1,21 @@
+/*  ==========================================================================
+    Helpers: Calculators
+    ========================================================================== */
+
+// ----------------------------------
+// Strip Units
+// ----------------------------------
+
+@function strip-unit($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+// ----------------------------------
+// Convert PX to EMs
+// See: https://gist.github.com/stowball/f2e37956cc673f4db91aa72e584f53b2
+// ----------------------------------
+
+@function em($target, $context: 16px, $unitless: false) {
+  $unit: if($unitless, 1, 1em);
+  @return strip-unit($target / $context) * $unit;
+}

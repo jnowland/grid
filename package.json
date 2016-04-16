@@ -1,0 +1,22 @@
+{
+  "name": "nowland-grid",
+  "version": "0.0.1",
+  "description": "A breakpoint based grid.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "build-css": "node_modules/node-sass/bin/node-sass --output-style expanded --include-path scss scss/styles.scss css/styles.css && node_modules/node-sass/bin/node-sass --output-style compressed --include-path scss scss/styles.scss  css/styles.min.css"
+  },
+  "keywords": [
+    "grid",
+    "css",
+    "responsive"
+  ],
+  "author": "James Nowland",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^3.4.2"
+  }
+}

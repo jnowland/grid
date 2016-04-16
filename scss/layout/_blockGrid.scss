@@ -1,0 +1,23 @@
+/*  ==========================================================================
+    Layout: Block Grid
+    --------------------------------------------------------------------------
+
+    Turn the float based grid into a block grid.
+    Combine with a moderfier to set alignment.
+
+    ========================================================================== */
+
+.BlockGrid {
+  [class^=col-] {
+    display: inline-block;
+    float: none;
+  }
+}
+
+// Set the alignment to what ever you need
+
+.BlockGrid--alignTop {
+  [class^=col-] {
+    vertical-align: top;
+  }
+}

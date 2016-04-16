@@ -1,0 +1,117 @@
+/*  ==========================================================================
+    Helpers: Grid Generator
+    --------------------------------------------------------------------------
+
+    Create a float grids based of our grid settings and breakpoints.
+
+    --------------------------
+    Requires:
+    --------------------------
+    1. settings/_breakpoints.scss
+    2. settings/_grid.scss
+    3. helpers/_clearfix.scss
+
+    ========================================================================== */
+
+
+// Set up Default Grid
+@mixin render-column($breakpointName: ''){
+  $appendName: "" !default;
+
+  @if $breakpointName != "" {
+    // esacping the @ symbol and appending it
+    $appendName: '#{\@}#{$breakpointName}';
+  }
+
+  @for $i from 1 through map-get($grid, columns) {
+    .col-#{$i}#{$appendName} {
+      width: percentage( $i / map-get($grid, columns) );
+    }
+  }
+
+}
+
+.container {
+  @include clearfix;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: map-get($grid, max-width);
+  padding-left:  ( map-get($grid, gutter) / 2 );
+  padding-right: ( map-get($grid, gutter) / 2 );
+}
+
+// Default row
+.row {
+  @include clearfix;
+  margin-left: ( map-get($grid, gutter) / -2 );
+  margin-right: ( map-get($grid, gutter) / -2 );
+}
+
+// Default column class
+[class^=col-] {
+  float: left;
+  margin: 0;
+  min-height: 1px;
+  padding: 0 #{ map-get($grid, gutter) / 2 }; // gutters
+  position: relative;
+  width: 100%;
+}
+
+// Render the grid without a breakpoint
+@include render-column;
+
+// Loop Over each of our breakpoints and call the function if we want to create a class
+@each $breakpoint, $value in $breakpoints {
+
+  // if we want the size to be rendered
+  @if nth($value, 2) {
+    // create the mediaquire and call the function
+    @media (min-width: #{ nth($value, 1) }) {
+      // Call the function and loop through column total
+      @include render-column($breakpoint);
+
+      @if map-get($grid, debug) {
+        .debug:before {
+          content: 'Grid: #{$breakpoint}';
+        }
+      }
+
+    }
+  }
+
+  // Render the debug
+  @if map-get($grid, debug) {
+    @media (min-width: #{ nth($value, 1) }) {
+      // Render the debug grid
+      .debug:after {
+        content: 'Breakpoint: #{$breakpoint} ';
+      }
+    }
+  }
+
+}
+
+@if map-get($grid, debug) {
+  .debug {
+    position: relative;
+
+    &:before,&:after {
+      background-color: #0f0;
+      color: #fff;
+      display:block;
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      @include breakpoint(print) {
+        display: none;
+      }
+    }
+
+    &:after {
+      background-color: #f00;
+      top: 18px;
+    }
+  }
+
+}
